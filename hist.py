@@ -1,17 +1,27 @@
 #!/usr/bin/env python
 # coding: utf-8
+"""Histograms with Python and Matplotlib
+
+Author:  Polina Lemenkova
+ORCID:   https://orcid.org/0000-0002-5759-1089
+Archive: https://doi.org/10.13140/RG.2.2.35337.70242
+License: MIT
+
+See README.md for details.
+"""
 import os
-import pandas as pd
-from matplotlib import pyplot as plt
+
 import matplotlib.artist as martist
-from matplotlib.offsetbox import AnchoredText
+import pandas as pd
 import seaborn as sb
+from matplotlib import pyplot as plt
+from matplotlib.offsetbox import AnchoredText
 
 sb.set_style("whitegrid")
 sb.set_context("paper")
 sb.set_color_codes()
 
-os.chdir('/Users/pauline/Documents/Python')
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 dfM = pd.read_csv("Tab-Morph.csv")
 
 fig = plt.figure(figsize=(10.0, 6.0), dpi=300)
@@ -19,11 +29,13 @@ fig.suptitle('Histogram plot of the observation sample distribution',
              fontsize=10, fontweight='bold', x=0.5, y=0.99
              )
 
+
 def add_at(ax, t, loc=2):
     fp = dict(size=11)
     _at = AnchoredText(t, loc=loc, prop=fp)
     ax.add_artist(_at)
     return _at
+
 
 # subplot 1
 ax = fig.add_subplot(221)
@@ -54,7 +66,7 @@ add_at(ax, "C")
 
 # subplot 4
 ax = fig.add_subplot(224)
-sb.distplot(dfM['plate_phill'],kde=True, rug=True, hist=True,
+sb.distplot(dfM['plate_phill'], kde=True, rug=True, hist=True,
             norm_hist=True, color="xkcd:rose pink",
             axlabel='Philippine Plate observations',
             label='Philippine Plate', vertical=False
